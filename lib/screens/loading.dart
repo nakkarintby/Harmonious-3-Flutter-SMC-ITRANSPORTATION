@@ -574,7 +574,7 @@ class _LoadingState extends State<Loading> {
           fileInBase64 = base64Encode(encodedBytes);
         });
 
-        //print size file image
+        /*//print size file image
         double news = fileInBase64.length / (1024 * 1024);
         print('Base64 : ' + news.toString() + ' MB');
 
@@ -610,7 +610,7 @@ class _LoadingState extends State<Loading> {
 
         setState(() {
           fileInBase64 = fileResizeInBase64;
-        });
+        });*/
       }
     }
     if (_image != null) {

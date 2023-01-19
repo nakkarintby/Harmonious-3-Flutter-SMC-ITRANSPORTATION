@@ -393,6 +393,7 @@ class _ContainerNumberState extends State<ContainerNumber> {
         });
       } else if (tempdoc.containerNo1 != null && tempdoc.containerNo2 == null) {
         setState(() {
+          statusUpload = 'Add more image : 1/2';
           sequence = 2;
           max = 2;
           step++;
@@ -463,12 +464,20 @@ class _ContainerNumberState extends State<ContainerNumber> {
           for (int i = 0; i < tempsplit.length; i++) {
             splitfin = splitfin + tempsplit[i];
           }
+
+          var tempsplit2 = splitfin.split(" ");
+          var splitfin2 = "";
+
+          for (int i = 0; i < tempsplit2.length; i++) {
+            splitfin2 = splitfin2 + tempsplit2[i];
+          }
           setState(() {
             final encodedBytes = _image!.readAsBytesSync();
             fileInBase64 = base64Encode(encodedBytes);
-            scannedText = splitfin;
+            scannedText = splitfin2;
           });
-          //print size file image
+
+          /*//print size file image
           double news = fileInBase64.length / (1024 * 1024);
           print('Base64 : ' + news.toString() + ' MB');
 
@@ -479,7 +488,7 @@ class _ContainerNumberState extends State<ContainerNumber> {
 
           //resize image
           img.Image? image = img.decodeImage(temp.readAsBytesSync());
-          var resizedImage = img.copyResize(image!, height: 120, width: 120);
+          var resizedImage = img.copyResize(image!, height: 150, width: 600);
 
           //Get a path to save the resized file
           final directory = await getApplicationDocumentsDirectory();
@@ -505,7 +514,7 @@ class _ContainerNumberState extends State<ContainerNumber> {
 
           setState(() {
             fileInBase64 = fileResizeInBase64;
-          });
+          });*/
         }
       }
       if (_image != null) {
@@ -527,12 +536,19 @@ class _ContainerNumberState extends State<ContainerNumber> {
 
   Future<void> _cropImage(File image) async {
     await showProgressLoading(true);
-    File? croppedFile = await ImageCropper().cropImage(
-        sourcePath: image.path,
-        aspectRatio: CropAspectRatio(ratioX: 9, ratioY: 2),
-        // maxWidth: 1, //optional if you want to control the width (max)
-        //maxHeight: 1000,
-        /*aspectRatioPresets: Platform.isAndroid
+    try {
+      File? croppedFile = await ImageCropper().cropImage(
+          compressQuality: 90,
+          sourcePath: image.path,
+          aspectRatio: CropAspectRatio(
+            // ratioX: 9,
+            //ratioY: 3,
+            ratioX: 20,
+            ratioY: 5,
+          ),
+          // maxWidth: 1, //optional if you want to control the width (max)
+          //maxHeight: 1000,
+          /*aspectRatioPresets: Platform.isAndroid
             ? [
                 CropAspectRatioPreset.ratio16x9
                 //CropAspectRatioPreset.square,
@@ -551,20 +567,25 @@ class _ContainerNumberState extends State<ContainerNumber> {
                 CropAspectRatioPreset.ratio7x5,
                 CropAspectRatioPreset.ratio16x9
               ],*/
-        androidUiSettings: AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false),
-        iosUiSettings: IOSUiSettings(
-          title: 'Cropper',
-        ));
+          androidUiSettings: AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.square,
+              lockAspectRatio: false),
+          iosUiSettings: IOSUiSettings(
+            title: 'Cropper',
+          ));
 
-    if (croppedFile != null) {
-      setState(() {
-        _image = croppedFile;
-      });
+      if (croppedFile != null) {
+        setState(() {
+          _image = croppedFile;
+        });
+      } else {
+        return;
+      }
+    } catch (e) {
+      showErrorDialog('Error occured while CroppedImage');
     }
   }
 
