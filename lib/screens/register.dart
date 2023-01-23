@@ -569,9 +569,9 @@ class _RegisterState extends State<Register> {
                   padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
                   child: Column(
                     children: [
-                      SizedBox(height: 6),
+                      SizedBox(height: 16),
                       _titleWidget(),
-                      SizedBox(height: 24),
+                      SizedBox(height: 36),
                       Container(
                         padding: EdgeInsets.all(28),
                         decoration: BoxDecoration(
@@ -592,6 +592,7 @@ class _RegisterState extends State<Register> {
                           ],
                         ),
                       ),
+                      SizedBox(height: 16),
                       _bottomWidget(),
                     ],
                   ),
