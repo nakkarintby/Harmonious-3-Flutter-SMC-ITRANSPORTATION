@@ -324,29 +324,18 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
           checkcreate = false;
           prefs.setInt('checkupHeaderID', checkHeader.checkUpHeaderID);
         });
-        if (checkHeader.truckType == 'Tractor-Bulk') {
-          if (trailerPlateController.text.isEmpty) {
-            setState(() {
-              prefs.setInt('typeCheckUp', 2);
-            });
-          } else {
-            setState(() {
-              prefs.setInt('typeCheckUp', 3);
-            });
-          }
-          await backButton();
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CheckupItemBulkHeadPage()));
+        if (trailerPlateController.text.isEmpty) {
+          setState(() {
+            prefs.setInt('typeCheckUp', 2);
+          });
         } else {
           setState(() {
-            prefs.setInt('typeCheckUp', 1);
+            prefs.setInt('typeCheckUp', 3);
           });
-          await backButton();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CheckupItemPage()));
         }
+        await backButton();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CheckupItemBulkHeadPage()));
       } else {
         setState(() {
           checkcreate = true;
@@ -417,29 +406,18 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
         setState(() {
           prefs.setInt('checkupHeaderID', checkHeader.checkUpHeaderID);
         });
-        if (checkHeader.truckType == 'Tractor-Bulk') {
-          if (trailerPlateController.text.isEmpty) {
-            setState(() {
-              prefs.setInt('typeCheckUp', 2);
-            });
-          } else {
-            setState(() {
-              prefs.setInt('typeCheckUp', 3);
-            });
-          }
-          await backButton();
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CheckupItemBulkHeadPage()));
+        if (trailerPlateController.text.isEmpty) {
+          setState(() {
+            prefs.setInt('typeCheckUp', 2);
+          });
         } else {
           setState(() {
-            prefs.setInt('typeCheckUp', 1);
+            prefs.setInt('typeCheckUp', 3);
           });
-          await backButton();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CheckupItemPage()));
         }
+        await backButton();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CheckupItemBulkHeadPage()));
       } else {
         showErrorDialog('Error occured while createHeader');
       }

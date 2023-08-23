@@ -64,7 +64,7 @@ class _RegisterState extends State<Register> {
     bool checkUsername = prefs.containsKey('username');
 
     if (!checkConfigsPrefs) {
-      prefs.setString('configs', 'smcapi.harmonious.co.th:422');
+      prefs.setString('configs', 'itransapi.harmonious.co.th');
     }
     if (!checkVerify) {
       prefs.setBool('verify', false);
@@ -204,6 +204,7 @@ class _RegisterState extends State<Register> {
 
       if (response.statusCode == 200) {
         _verificationNotifier.add(true);
+        print(checkAns.accessToken.toString());
         prefs.setString('accessToken', checkAns.accessToken.toString());
         prefs.setString('username', checkAns.user!.userName.toString());
         timer = Timer(Duration(seconds: 1), () {
