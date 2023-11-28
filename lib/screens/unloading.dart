@@ -37,7 +37,6 @@ class _UnloadingState extends State<Unloading> {
   bool uploadEnabled = false;
   bool finishEnabled = false;
   bool backEnabled = false;
-
   String documentIdInput = '';
   String eventType = '';
   String statusUpload = '';
@@ -45,7 +44,6 @@ class _UnloadingState extends State<Unloading> {
   bool documentWillUpload = false;
   bool documentWillUploadOrWillFinish = false;
   bool documentWillFinish = false;
-
   int step = 0;
   final ImagePicker _picker = ImagePicker();
   late File? _image = null;
@@ -64,7 +62,6 @@ class _UnloadingState extends State<Unloading> {
   Location location = Location();
   String gps = "";
   String documentType = "";
-
   String username = '';
 
   @override

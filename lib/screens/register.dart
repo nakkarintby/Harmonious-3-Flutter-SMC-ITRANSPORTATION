@@ -399,7 +399,7 @@ class _RegisterState extends State<Register> {
             right: MediaQuery.of(context).size.width / 80,
             child: ElevatedButton(
               onPressed: () {},
-              child: Text('1.1'),
+              child: Text('1.2'),
               style: ElevatedButton.styleFrom(
                 primary: Colors.red[400], //
                 shape: CircleBorder(),

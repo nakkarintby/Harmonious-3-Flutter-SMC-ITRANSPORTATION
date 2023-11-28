@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -480,6 +482,32 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
     await createHeader();
   }
 
+  Future<void> scanQRTruck() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    setState(() {
+      truckPlateController.text = barcodeScanRes;
+    });
+  }
+
+  Future<void> scanQRTrailer() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    setState(() {
+      trailerPlateController.text = barcodeScanRes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -512,7 +540,7 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
                     CrossAxisAlignment.center, //Center Row contents vertically,
                 children: <Widget>[
                   new SizedBox(
-                      width: 160.0,
+                      width: 180.0,
                       height: 75.0,
                       child: TextFormField(
                         readOnly: truckPlateReadonly,
@@ -520,6 +548,17 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
                         textInputAction: TextInputAction.go,
                         onFieldSubmitted: (value) {},
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Image.asset(
+                              'assets/qr-code.png',
+                              color: Colors.lightBlueAccent,
+                              height: 44,
+                              fit: BoxFit.cover,
+                            ),
+                            onPressed: () {
+                              scanQRTruck();
+                            },
+                          ),
                           fillColor: truckPlateColor,
                           filled: true,
                           hintText: 'Enter Truck Plate',
@@ -539,7 +578,7 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
                     CrossAxisAlignment.center, //Center Row contents vertically,
                 children: <Widget>[
                   new SizedBox(
-                      width: 160.0,
+                      width: 180.0,
                       height: 75.0,
                       child: TextFormField(
                         readOnly: trailerPlateReadonly,
@@ -547,6 +586,17 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
                         textInputAction: TextInputAction.go,
                         onFieldSubmitted: (value) {},
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Image.asset(
+                              'assets/qr-code.png',
+                              color: Colors.lightBlueAccent,
+                              height: 44,
+                              fit: BoxFit.cover,
+                            ),
+                            onPressed: () {
+                              scanQRTrailer();
+                            },
+                          ),
                           fillColor: trailerPlateColor,
                           filled: true,
                           hintText: 'Enter Trailer Plate',
@@ -568,7 +618,7 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
                         .center, //Center Row contents vertically,
                     children: <Widget>[
                       new SizedBox(
-                        width: 160.0,
+                        width: 180.0,
                         height: 75.0,
                         child: DropdownButtonFormField2(
                           decoration: InputDecoration(
@@ -634,7 +684,7 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
                         .center, //Center Row contents vertically,
                     children: <Widget>[
                       new SizedBox(
-                          width: 160.0,
+                          width: 180.0,
                           height: 75.0,
                           child: TextFormField(
                             readOnly: mileageReadonly,
@@ -666,7 +716,7 @@ class _CheckupHeaderPageState extends State<CheckupHeader> {
                         .center, //Center Row contents vertically,
                     children: <Widget>[
                       new SizedBox(
-                          width: 160.0,
+                          width: 180.0,
                           height: 75.0,
                           child: TextFormField(
                             readOnly: truckTypeReadonly,
